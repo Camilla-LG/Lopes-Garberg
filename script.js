@@ -13,11 +13,12 @@ updateView();
 function updateView(){
     document.getElementById('website').innerHTML= /*HTML*/ `
 
- 
-    <h1 id="headline">The Lopes-Garberg's</h1>
-    <h3 id="subHeadline">Established 2022</h3>
-    
-    <button id="modeButton" onclick="lightMode(); darkMode()"></button>
+    <div class="headers">
+        <h1 id="headline">The Lopes-Garberg's</h1>
+        <h3 id="subHeadline">Established 2022</h3>
+    </div>
+
+    <button id="modeButton" onclick="lightMode()"></button>
 
     <div class="container">
         <div id="familyPic">
@@ -58,13 +59,21 @@ function clickArnstein(){
             <img src="img/IMG_20230113_144215_422.jpg" width="400" height="400">
         </div>
         <div id="personInfo">
-        <h2 id="nameTag"> Arnstein </h2>
-        <br>
-        Ivrig løper, ølbrygger, og baker av surdeigsbrød, pizza og kanelsnurrer.
-         Hjertevarm og omtenksom ektemann og pappa, som stortrives i helsefagyrket med de eldre, 
-         men herjer dansegulvet når anledningen byr seg. Stolt eier av de tørreste pappavitsene,
-         men er fortsatt ganske så morsom til tross.
-         </div>
+            <h2 id="nameTag"> Arnstein </h2>
+            <br>
+            Ivrig løper, ølbrygger, og baker av surdeigsbrød, pizza og kanelsnurrer.
+            Hjertevarm og omtenksom ektemann og pappa, som stortrives i helsefagyrket med de eldre, 
+            men herjer dansegulvet når anledningen byr seg. Stolt eier av de tørreste pappavitsene,
+            men er fortsatt ganske så morsom til tross.
+            <br>
+            <br>
+            <br>
+            <div class="bdayCountdownA">
+                <div> Birthday Countdown </div>
+                <br>
+                <div id="timerA"></div>
+            </div>
+        </div>
     </div>
     `;
 }
@@ -156,6 +165,40 @@ function clickMarve(){
 function clickStartpage(){
     updateView();
 }
+
+let today = new Date(),
+    dd = String(today.getDate()).padStart(2, '0'),
+    mm = String(today.getMonth() + 1).padStart(2, '0'),
+    yyyy = today.getFullYear(),
+    nextYear = yyyy + 1,
+    dayMonth = '08/23/',
+    birthdayA = dayMonth + yyyy;
+today = mm + '/' + dd + '/' + yyyy;
+if (today > birthdayA) {
+    birthdayA = dayMonth + nextYear;
+}
+
+let countdownDate = new Date(birthdayA).getTime();
+let x = setInterval(function(){
+    let now = new Date().getTime();
+    let timeleft = countdownDate - now;
+    let days = Math.floor(timeleft/(1000*60*60*24));
+    let hours = Math.floor((timeleft % (1000*60*60*24)) / (1000*60*60));
+    let minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    
+    document.getElementById("timerA").innerHTML = 
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s " ;
+
+    if (timeleft < 0) {
+        clearInterval(x);
+        document.getElementById("bdayCountdownA").innerHTML = 
+        "HAPPY BIRTHDAY!";
+    }
+
+}, 1000);
+
+
 
 
 
